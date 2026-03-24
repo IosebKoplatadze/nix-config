@@ -17,7 +17,7 @@ This flake installs **nix-darwin**, **Home Manager**, and **Homebrew** packages/
    ```
    If the installer warns that `~/.zshrc` exists, back it up, then re-run `darwin-rebuild` / Home Manager so the managed `.zshrc` from this repo is restored.
 
-4. **Work credentials:** Put `JFROG_USER`, `JFROG_PASSWORD`, and anything else sensitive in `~/.zshrc.local` (ignored by git). That file is sourced at the end of `dotfiles/zshrc`.
+4. **Work credentials:** Put `JFROG_USER`, `JFROG_PASSWORD`, and anything else sensitive in `~/.zshrc.local` (ignored by git). See `dotfiles/zshrc.local.example`. That file is sourced at the end of `dotfiles/zshrc` (your previous `~/.zshrc` had those exports; they were **not** copied into git for safety).
 
 5. **Private repo:** Push this directory to a **private** Git host so signing keys and layout are not public.
 

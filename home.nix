@@ -25,8 +25,6 @@ in
       format = "ssh";
     };
     extraConfig = {
-      gpg.format = "ssh";
-      commit.gpgSign = true;
       core.pager = "delta";
       interactive.diffFilter = "delta --color-only";
       merge.conflictstyle = "diff3";
