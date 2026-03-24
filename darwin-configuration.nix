@@ -86,13 +86,26 @@
       "zsh-syntax-highlighting"
     ];
 
+    # GUI apps (Homebrew casks). Docker Desktop and OrbStack both provide Docker;
+    # pick one for daily use to avoid fighting over the same daemon/socket.
     casks = [
+      "alacritty"
+      "arc"
+      "cursor"
+      "docker-desktop"
+      "figma"
       "font-jetbrains-mono"
       "font-jetbrains-mono-nerd-font"
       "ghostty"
+      "google-chrome"
+      "notion"
       "orbstack"
+      "raycast"
+      "slack"
       "tsh"
+      "visual-studio-code"
       "warp"
+      "zed"
     ];
   };
 }
