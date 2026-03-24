@@ -1,0 +1,5 @@
+# Copy to ~/.zshrc.local (never commit that file).
+#
+# Example:
+# export JFROG_USER="you@company.com"
+# export JFROG_PASSWORD="..."
