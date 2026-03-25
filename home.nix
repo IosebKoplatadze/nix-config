@@ -7,6 +7,8 @@ in
   home.homeDirectory = "/Users/${username}";
   home.stateVersion = "24.11";
 
+  xdg.enable = true;
+
   programs.home-manager.enable = true;
 
   programs.direnv = {
@@ -45,4 +47,14 @@ in
 
   home.file.".zshrc".source = ./dotfiles/zshrc;
   home.file.".p10k.zsh".source = ./dotfiles/p10k.zsh;
+
+  # Terminal / editor configs (~/.config/…)
+  xdg.configFile."alacritty".source = ./dotfiles/alacritty;
+  xdg.configFile."ghostty".source = ./dotfiles/ghostty;
+  xdg.configFile."helix".source = ./dotfiles/helix;
+  xdg.configFile."nvim".source = ./dotfiles/nvim;
+
+  # tmux: main file at ~/.tmux.conf; reset keys at ~/.config/tmux/tmux.reset.conf
+  home.file.".tmux.conf".source = ./dotfiles/tmux/tmux.conf;
+  xdg.configFile."tmux/tmux.reset.conf".source = ./dotfiles/tmux/tmux.reset.conf;
 }

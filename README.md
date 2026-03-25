@@ -21,6 +21,27 @@ This flake installs **nix-darwin**, **Home Manager**, and **Homebrew** packages/
 
 5. **Private repo:** Push this directory to a **private** Git host so signing keys and layout are not public.
 
+## Dotfiles managed here
+
+Home Manager installs these from `dotfiles/`:
+
+| Tool | Paths |
+|------|--------|
+| **p10k** | `~/.p10k.zsh` |
+| **Alacritty** | `~/.config/alacritty/` |
+| **Ghostty** | `~/.config/ghostty/` |
+| **Helix** | `~/.config/helix/` |
+| **Neovim** | `~/.config/nvim/` (LazyVim-style `init.lua` + `lua/`; plugins download on first run) |
+| **tmux** | `~/.tmux.conf` + `~/.config/tmux/tmux.reset.conf` |
+
+**Neovim:** After first launch, run `:Lazy sync` so Lazy.nvim installs plugins from `lazy-lock.json`.
+
+**tmux:** [TPM](https://github.com/tmux-plugins/tpm) is not bundled. Install once per machine, then open tmux and press `prefix` + `I` to fetch plugins:
+
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
 ## First-time apply (this Mac or the new Mac)
 
 ```bash
