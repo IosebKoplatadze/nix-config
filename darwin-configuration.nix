@@ -20,10 +20,9 @@
   system.stateVersion = 6;
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  # Determinate Nix manages the daemon and /etc/nix; nix-darwin must not manage Nix too.
+  nix.enable = false;
+  # Flakes / nix-command: configure via Determinate or ~/.config/nix/nix.conf (not nix.settings here).
 
   # Homebrew: mirrors `brew leaves` + casks from your current Mac (see README to extend).
   homebrew = {

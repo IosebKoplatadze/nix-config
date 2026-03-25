@@ -1,6 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   username = "ioseb.koplatadze";
+  # nixpkgs sets CGO_ENABLED=0 for a static direnv build, but the upstream Makefile uses
+  # -linkmode=external on Darwin, which requires CGO (see direnv build failure on macOS).
+  direnv =
+    pkgs.direnv.overrideAttrs (old: {
+      env = old.env // lib.optionalAttrs pkgs.stdenv.isDarwin { CGO_ENABLED = "1"; };
+    });
 in
 {
   home.username = username;
@@ -13,35 +19,37 @@ in
 
   programs.direnv = {
     enable = true;
+    package = direnv;
     nix-direnv.enable = true;
   };
 
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
-    userName = "Ioseb Koplatadze";
-    userEmail = "ioseb.koplatadze@coralogix.com";
+    settings = {
+      user.name = "Ioseb Koplatadze";
+      user.email = "ioseb.koplatadze@coralogix.com";
+      merge.conflictstyle = "diff3";
+      diff.colorMoved = "default";
+      url."git@github.com:".insteadOf = "https://github.com/";
+    };
     signing = {
       signByDefault = true;
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGgw5pqYP4PQzuszT+3UGCZsPq/koHG4ceJXGTfGvo49 ioseb.koplatadze@coralogix.com";
       format = "ssh";
     };
-    extraConfig = {
-      core.pager = "delta";
-      interactive.diffFilter = "delta --color-only";
-      merge.conflictstyle = "diff3";
-      diff.colorMoved = "default";
-      url."git@github.com:".insteadOf = "https://github.com/";
-    };
-    delta = {
-      enable = true;
-      options = {
-        navigate = true;
-        light = false;
-        side-by-side = true;
-        line-numbers = true;
-        syntax-theme = "Catppuccin-mocha";
-      };
+  };
+
+  # Sets core.pager / interactive.diffFilter; do not duplicate those in programs.git.settings.
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
+      light = false;
+      side-by-side = true;
+      line-numbers = true;
+      syntax-theme = "Catppuccin-mocha";
     };
   };
 
