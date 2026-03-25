@@ -36,7 +36,6 @@
     taps = [
       "bufbuild/buf"
       "anomalyco/tap"
-      "homebrew/cask-fonts"
     ];
 
     brews = [
@@ -92,7 +91,6 @@
       "arc"
       "cursor"
       "docker-desktop"
-      "figma"
       "font-jetbrains-mono"
       "font-jetbrains-mono-nerd-font"
       "ghostty"
