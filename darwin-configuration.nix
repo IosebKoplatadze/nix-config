@@ -39,7 +39,7 @@
     ];
 
     brews = [
-      "node@22"
+      "nvm"
       "awscli"
       "bat"
       "btop"
