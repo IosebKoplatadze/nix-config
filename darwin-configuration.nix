@@ -96,6 +96,7 @@
       "ghostty"
       "google-chrome"
       "notion"
+      "obsidian"
       "orbstack"
       "raycast"
       "slack"
