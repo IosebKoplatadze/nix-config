@@ -1,6 +1,9 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   username = "ioseb.koplatadze";
+  # Out-of-store symlinks: edits in ~/nix-config apply live (no rebuild), files stay writable.
+  repoDir = "${config.home.homeDirectory}/nix-config";
+  link = p: config.lib.file.mkOutOfStoreSymlink "${repoDir}/${p}";
   # nixpkgs sets CGO_ENABLED=0 for a static direnv build, but the upstream Makefile uses
   # -linkmode=external on Darwin, which requires CGO (see direnv build failure on macOS).
   direnv =
@@ -53,16 +56,16 @@ in
     };
   };
 
-  home.file.".zshrc".source = ./dotfiles/zshrc;
-  home.file.".p10k.zsh".source = ./dotfiles/p10k.zsh;
+  home.file.".zshrc".source = link "dotfiles/zshrc";
+  home.file.".p10k.zsh".source = link "dotfiles/p10k.zsh";
 
   # Terminal / editor configs (~/.config/…)
-  xdg.configFile."alacritty".source = ./dotfiles/alacritty;
-  xdg.configFile."ghostty".source = ./dotfiles/ghostty;
-  xdg.configFile."helix".source = ./dotfiles/helix;
-  xdg.configFile."nvim".source = ./dotfiles/nvim;
+  xdg.configFile."alacritty".source = link "dotfiles/alacritty";
+  xdg.configFile."ghostty".source = link "dotfiles/ghostty";
+  xdg.configFile."helix".source = link "dotfiles/helix";
+  xdg.configFile."nvim".source = link "dotfiles/nvim";
 
   # tmux: main file at ~/.tmux.conf; reset keys at ~/.config/tmux/tmux.reset.conf
-  home.file.".tmux.conf".source = ./dotfiles/tmux/tmux.conf;
-  xdg.configFile."tmux/tmux.reset.conf".source = ./dotfiles/tmux/tmux.reset.conf;
+  home.file.".tmux.conf".source = link "dotfiles/tmux/tmux.conf";
+  xdg.configFile."tmux/tmux.reset.conf".source = link "dotfiles/tmux/tmux.reset.conf";
 }

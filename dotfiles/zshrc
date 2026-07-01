@@ -84,7 +84,6 @@ bindkey '^[[B' history-search-forward
 alias ls="eza --icons=always"
 
 # ---- Zoxide (better cd) ----
-eval "$(zoxide init zsh)"
 alias cd="z"
 
 # ---- Custom Shortcuts ----
@@ -169,3 +168,6 @@ esac
 export PATH="$HOME/.local/bin:$PATH"
 
 export NODE_OPTIONS="--max-old-space-size=8192"
+
+# ---- Zoxide init: MUST be last (zoxide doctor) ----
+eval "$(zoxide init zsh)"
