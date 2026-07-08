@@ -84,7 +84,9 @@ bindkey '^[[B' history-search-forward
 alias ls="eza --icons=always"
 
 # ---- Zoxide (better cd) ----
-alias cd="z"
+# Guarded like zoxide init below: agent shells set DISABLE_ZOXIDE, and an
+# unguarded alias points cd at an undefined z there (silent wrong-cwd trap).
+[ -z "$DISABLE_ZOXIDE" ] && alias cd="z"
 
 # ---- Custom Shortcuts ----
 # Git shortcuts
@@ -170,4 +172,6 @@ export PATH="$HOME/.local/bin:$PATH"
 export NODE_OPTIONS="--max-old-space-size=8192"
 
 # ---- Zoxide init: MUST be last (zoxide doctor) ----
-eval "$(zoxide init zsh)"
+if [ -z "$DISABLE_ZOXIDE" ]; then
+    eval "$(zoxide init zsh)"
+fi
