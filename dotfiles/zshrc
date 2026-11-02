@@ -171,6 +171,22 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export NODE_OPTIONS="--max-old-space-size=8192"
 
+# ---- Claude: load repo skills (.claude/skills of --add-dir repos) ----
+# `claude agents` forwards --add-dir to every dispatched session; plain
+# `claude` gets them only when started from ~. Other subcommands untouched.
+CLAUDE_SKILL_REPOS=(~/repos/cx-web-workspace ~/repos/sso-service)
+claude() {
+  local -a dirs=()
+  local d; for d in $CLAUDE_SKILL_REPOS; do dirs+=(--add-dir "$d"); done
+  if [[ $1 == agents ]]; then
+    shift; command claude agents $dirs "$@"
+  elif [[ $PWD == $HOME && ! $1 =~ ^(attach|auth|auto-mode|config|doctor|gateway|import|install|kill|logs|mcp|migrate-installer|plugins?|purge|respawn|rm|setup-token|stop|ultrareview|update|upgrade)$ ]]; then
+    command claude $dirs "$@"
+  else
+    command claude "$@"
+  fi
+}
+
 # ---- Zoxide init: MUST be last (zoxide doctor) ----
 if [ -z "$DISABLE_ZOXIDE" ]; then
     eval "$(zoxide init zsh)"
