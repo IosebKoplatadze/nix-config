@@ -75,13 +75,12 @@ vi_mode_style = { shape = "Block", blinking = "On" }
 
 
 [mouse]
-# Click settings
 hide_when_typing = true
 
 [hints]
 # URL hints
 enabled = [
-    { regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+", command = "open", post_processing = true, mouse = { enabled = true, mods = "Command" }, binding = { key = "U", mods = "Control|Shift" } }
+    { regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+", command = "open", post_processing = true, hyperlinks = true, mouse = { enabled = true, mods = "Command" }, binding = { key = "U", mods = "Control|Shift" } }
 ]
 
 # Shift+Enter inserts a newline instead of submitting (Claude Code, shells, REPLs).
