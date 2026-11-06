@@ -171,6 +171,10 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export NODE_OPTIONS="--max-old-space-size=8192"
 
+# Claude Code Bash tool shells (CLAUDECODE=1): pass unmatched globs through like bash
+# instead of aborting the command ("no matches found: --include=*.ts").
+[[ -n $CLAUDECODE ]] && setopt nonomatch
+
 # ---- Claude: load repo skills (.claude/skills of --add-dir repos) ----
 # `claude agents` forwards --add-dir to every dispatched session; plain
 # `claude` gets them only when started from ~. Other subcommands untouched.
